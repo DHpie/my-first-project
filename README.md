@@ -1,19 +1,28 @@
-﻿# My First Project
+﻿# AIWorkSpace
 
-> Based on **Harness + OpenSpec + Superpowers** methodology for AI-driven development.
+> AI-driven fullstack development workspace based on **Harness + OpenSpec + Superpowers** methodology.
 
 ## Overview
 
-This project integrates three AI-driven development frameworks:
+This is a monorepo workspace that manages AI-driven development tooling and coordinates frontend/backend subprojects via **Git Submodules**.
 
 - **Harness** - Agent lifecycle control and configuration layer (`.harness/`, `.agent/`, `.qoder/`)
 - **OpenSpec** - Spec-Driven Development (SDD), agree on specs before writing code (`openspec/`)
 - **Superpowers** - Agentic skills framework with mandatory workflows (`skills/`)
 
+## Submodules
+
+| Path | Repository | Tech Stack | Description |
+|------|-----------|------------|-------------|
+| `frontend/` | [my-first-project-frontend](https://github.com/DHpie/my-first-project-frontend) | React 18 + TypeScript + Vite 5 | User management UI |
+| `backend/` | [my-first-project-backend](https://github.com/DHpie/my-first-project-backend) | Java 21 + Spring Boot 3.3 + JPA | User CRUD REST API |
+
+Each submodule is an independent repository with its own development lifecycle. The workspace root manages overall architecture, specs, and AI agent configuration.
+
 ## Directory Structure
 
 ```
-my-first-project/
+AIWorkSpace/
 +-- .harness/                    # Harness configuration
 |   +-- config.md                # Agent behavior constraints, quality gates, lifecycle
 +-- .agent/                      # AI agent instructions
@@ -27,34 +36,10 @@ my-first-project/
 |   +-- changes/                 # In-flight change proposals
 |       +-- archive/             # Completed and archived changes
 +-- skills/                      # Superpowers skills framework (13 mandatory skills)
-|   +-- brainstorming/           # Socratic design refinement (3 paths: spike/bounded/architectural)
-|   |   +-- spec-document-reviewer-prompt.md
-|   +-- dispatching-parallel-agents/ # Concurrent subagent workflows
-|   +-- executing-plans/         # Batch execution with checkpoints
-|   +-- finishing-a-development-branch/ # Merge/PR decision workflow
-|   +-- receiving-code-review/   # Responding to feedback (no performative agreement)
-|   +-- requesting-code-review/  # Pre-review checklist and reviewer prompt
-|   |   +-- code-reviewer.md
-|   +-- subagent-driven-development/ # Fresh subagent per task + two-stage review
-|   |   +-- implementer-prompt.md
-|   |   +-- task-reviewer-prompt.md
-|   |   +-- re-review-prompt.md
-|   +-- systematic-debugging/    # 4-phase root cause process
-|   |   +-- root-cause-tracing.md
-|   |   +-- defense-in-depth.md
-|   |   +-- condition-based-waiting.md
-|   +-- test-driven-development/ # RED-GREEN-REFACTOR cycle
-|   |   +-- writing-good-tests.md
-|   +-- using-git-worktrees/     # Parallel development branches
-|   +-- using-superpowers/       # Skills system introduction
-|   +-- verification-before-completion/ # Fresh evidence required before completion
-|   +-- writing-plans/           # Detailed implementation plans (2-5 min tasks)
-|   |   +-- plan-document-reviewer-prompt.md
-|   +-- writing-skills/          # Create new skills (TDD applied to documentation)
++-- frontend/                    # [submodule] React + Vite + TypeScript frontend
++-- backend/                     # [submodule] Spring Boot + JPA backend
 +-- docs/                        # Long-lived documentation
-|   +-- adr/                     # Architecture Decision Records
-+-- src/                         # Source code
-+-- tests/                       # Test code
++-- .gitmodules                  # Git submodule configuration
 +-- .gitignore
 +-- README.md
 ```
@@ -92,10 +77,34 @@ OpenSpec runs in parallel for spec management:
 
 ## Quick Start
 
+### Clone
+
+```bash
+# Clone with submodules
+git clone --recurse-submodules git@github.com:DHpie/my-first-project.git
+cd my-first-project
+
+# If already cloned, initialize submodules:
+git submodule update --init --recursive
+```
+
+### Develop
+
 1. Read `.agent/instructions.md` for agent workflow
 2. Read `skills/using-superpowers/SKILL.md` for skills overview
 3. Check `openspec/specs/` for current specifications
 4. Before any task: check `skills/` for relevant skills
+
+### Update Submodules
+
+```bash
+# Pull latest for all submodules
+git submodule update --remote
+
+# Or update a specific submodule
+cd frontend && git pull origin main && cd ..
+git add frontend && git commit -m "chore: update frontend submodule"
+```
 
 ## References
 

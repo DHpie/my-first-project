@@ -2,6 +2,17 @@
 
 Project documentation and long-lived reference material.
 
+## Monorepo Architecture
+
+This workspace uses **Git Submodules** to manage subprojects:
+
+| Submodule | Repository | Description |
+|-----------|-----------|-------------|
+| `frontend/` | [my-first-project-frontend](https://github.com/DHpie/my-first-project-frontend) | React + Vite + TypeScript UI |
+| `backend/` | [my-first-project-backend](https://github.com/DHpie/my-first-project-backend) | Spring Boot + JPA REST API |
+
+Submodules are independently versioned. The workspace root coordinates architecture, specs, and AI agent tooling.
+
 ## Structure
 
 - `adr/` - Architecture Decision Records (industry-standard pattern)
