@@ -1,0 +1,14 @@
+﻿# OpenSpec Configuration
+# Schema: spec-driven
+schema: spec-driven
+
+# AI tools configured for this project
+ai_tools:
+  - qoder
+
+# Language for all artifacts
+language: English
+
+# Telemetry
+telemetry:
+  enabled: true
