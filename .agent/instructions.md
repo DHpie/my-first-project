@@ -81,6 +81,10 @@ Many skills include supporting files loaded on demand:
 - Every commit should have a corresponding test
 - This applies to ALL implementation, including skill creation
 
+## Technology Stack
+
+See `.harness/config.md` > **Technology Stack Constraints** for binding technology selections, version constraints, and cross-cutting rules.
+
 ## Quality Standards
 
 - YAGNI: You Aren't Gonna Need It

@@ -6,7 +6,7 @@ Configures the AI coding agent's behavior, constraints, and lifecycle controls.
 
 - **Project**: my-first-project
 - **Methodology**: Harness + OpenSpec + Superpowers
-- **Primary Language**: (configure your primary language here)
+- **Primary Language**: Java 17 (Backend) / TypeScript 6 (Frontend)
 
 ## Session Startup
 
@@ -16,6 +16,60 @@ At the start of each session:
 3. Check `openspec/changes/` for in-flight changes
 4. Check `openspec/specs/` for current specifications
 5. Load any skill referenced by the current task context
+
+## Technology Stack Constraints
+
+The following technology choices are **binding** for this project. All AI-generated code MUST conform to these selections.
+
+### Frontend: Next.js 15
+
+| Component | Selection | Version |
+|-----------|-----------|----------|
+| UI Framework | React | ^19 |
+| Meta Framework | Next.js (App Router) | 15 |
+| Language | TypeScript | ~6 |
+| Build Tool | Next.js built-in (Turbopack) | — |
+| HTTP Client | Axios | ^1.20 |
+| Linting | Oxlint | ^1.79 |
+
+**Selection rationale:**
+- Team is fully proficient in React — zero learning cost
+- Next.js 15 has the highest AI code generation quality among React frameworks (Next.js 14 selected initially but upgraded to 15 for React 19 compatibility)
+- App Router + Server Components is the current architectural direction of the React ecosystem
+- Native Vercel deployment support; Docker deployment also mature
+- **DO NOT** introduce Vue/Nuxt or non-App-Router patterns (Pages Router is legacy)
+
+### Backend: Spring Boot 3
+
+| Component | Selection | Version |
+|-----------|-----------|----------|
+| Language | Java | 17 |
+| Framework | Spring Boot | 3.3.x |
+| ORM | Spring Data JPA + Hibernate | managed by Spring Boot |
+| Database | MySQL | 8.x |
+| Build Tool | Maven (Maven Wrapper) | managed by Spring Boot |
+| Validation | Spring Boot Starter Validation | managed by Spring Boot |
+
+**Selection rationale:**
+- Team has extensive Spring Boot development experience
+- Spring Boot has the richest AI training data among backend frameworks
+- Layered architecture (Controller → Service → Repository → Entity → DTO) is well-established and AI-generatable
+- Enterprise-grade ecosystem supports long-term continuous iteration
+- **DO NOT** introduce NestJS or other Node.js backend frameworks
+
+### Deployment
+
+| Target | Frontend | Backend |
+|--------|----------|---------|
+| Primary | Vercel | Docker |
+| Alternative | Docker | Docker |
+
+### Cross-Cutting Rules
+
+1. **Language boundary is strict**: Frontend = TypeScript only, Backend = Java only
+2. **API contract**: JSON over REST, unified `Result<T>` response wrapper, all endpoints prefixed with `/api`
+3. **AI generation quality first**: When multiple implementation approaches exist, prefer the one with the most AI training data coverage (e.g., standard Spring annotations over custom abstractions, Next.js built-in features over third-party libraries)
+4. **No framework mixing**: Do not introduce competing frameworks (e.g., Express, Fastify, Vue, Svelte) into the project
 
 ## Behavioral Constraints
 
@@ -66,10 +120,16 @@ At the start of each session:
 
 ## Tool Preferences
 
-- **Package Manager**: (npm / pnpm / yarn / bun)
-- **Test Framework**: (jest / vitest / pytest / etc.)
-- **Linter**: (eslint / ruff / etc.)
-- **Formatter**: (prettier / black / etc.)
+### Backend
+- **Build Tool**: Maven (via Maven Wrapper `mvnw.cmd`)
+- **Test Framework**: JUnit 5 (via `spring-boot-starter-test`)
+- **Linter**: N/A (Java — IDE-based)
+
+### Frontend
+- **Package Manager**: npm
+- **Test Framework**: (to be determined)
+- **Linter**: Oxlint
+- **Formatter**: (to be determined)
 
 ## Skills Reference
 
