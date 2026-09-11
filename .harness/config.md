@@ -1,4 +1,9 @@
-﻿# Harness Configuration
+﻿---
+description: Spec-driven 工作流强制规则，always-on 全局生效
+trigger: always_on
+---
+
+# Harness Configuration
 
 Configures the AI coding agent's behavior, constraints, and lifecycle controls.
 
@@ -97,20 +102,35 @@ The following technology choices are **binding** for this project. All AI-genera
 - Request code review using `requesting-code-review` skill
 - Archive completed changes per OpenSpec workflow
 
-## Lifecycle Phases
+## Spec-Driven Workflow
 
-1. **Brainstorm** - Classify idea (spike/bounded/architectural), refine through questions
-2. **Propose** - Create change in `openspec/changes/<name>/` with:
-   - `proposal.md` -- why and what
-   - `specs/` -- requirements and scenarios
-   - `design.md` -- technical approach
-   - `tasks.md` -- implementation checklist
-3. **Plan** - Write detailed plan with bite-sized tasks (2-5 min each) inside `openspec/changes/<name>/tasks.md`
-4. **Worktree** - Create isolated workspace if needed
-5. **Implement** - Execute using TDD with subagent-driven development
-6. **Review** - Code review against plan and specs
-7. **Verify** - Fresh verification evidence required before completion claims
-8. **Archive** - Move to `openspec/changes/archive/`
+任何涉及 `src/` 改动的请求，必须按下列顺序推进，**不可跳步**：
+
+```
+brainstorming  →  propose  →  plan  →  worktree  →  TDD 实现  →  code review  →  verify  →  archive
+```
+
+### 各阶段约束
+
+| 阶段 | 触发 | 产出物 | 人类把关点 |
+|---|---|---|---|
+| brainstorming | `skills/brainstorming` | 对话产出的需求要点 | 用户确认需求理解 |
+| propose | `openspec-propose` | `openspec/changes/<name>/{proposal,specs,design,tasks}.md` | 用户签字四件套 |
+| plan | `skills/writing-plans` | `openspec/changes/<name>/tasks.md` 细化步骤 | 用户确认计划 |
+| worktree | `skills/using-git-worktrees` | 隔离工作区 | — |
+| 实现 | `openspec-apply-change` + `skills/test-driven-development` + `skills/subagent-driven-development` | `src/` 代码 + 测试 | 测试全绿 |
+| review | `skills/requesting-code-review` | review 报告 | critical 问题清零 |
+| verify | `skills/verification-before-completion` | 新鲜验证证据 | — |
+| archive | `openspec-archive-change` + `skills/finishing-a-development-branch` | `openspec/changes/archive/<date>-<name>/` | 用户选择集成方式 |
+
+### 例外
+
+- 修复明显 typo / 注释 / 文档：可以跳过 propose，但仍需 TDD（如改了行为）。
+- 仅修改 `.qoder/`、`.harness/` 或 `openspec/` 自身的配置文件：无需走 OpenSpec 流程。
+
+### 违反处理
+
+如果发现 agent 跳步直接写 `src/`，立刻停止、回退、从 brainstorming 重来。
 
 ## Quality Gates
 
