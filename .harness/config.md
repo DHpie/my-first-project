@@ -1,7 +1,8 @@
-﻿---
+---
 description: Spec-driven 工作流强制规则，always-on 全局生效
 trigger: always_on
 ---
+
 
 # Harness Configuration
 
