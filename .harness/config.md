@@ -29,6 +29,10 @@ The following technology choices are **binding** for this project. All AI-genera
 | Meta Framework | Next.js (App Router) | 15 |
 | Language | TypeScript | ~6 |
 | Build Tool | Next.js built-in (Turbopack) | — |
+| Styling | Tailwind CSS + shadcn/ui | latest |
+| Icon Library | lucide-react | latest |
+| Image Optimization | next/image (mandatory for all images) | built-in |
+| Responsive Strategy | mobile-first (Tailwind breakpoint prefixes) | — |
 | HTTP Client | Axios | ^1.20 |
 | Linting | Oxlint | ^1.79 |
 

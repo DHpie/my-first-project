@@ -7,7 +7,7 @@ ai_tools:
   - qoder
 
 # Language for all artifacts
-language: English
+language: Chinese
 
 # Telemetry
 telemetry:
