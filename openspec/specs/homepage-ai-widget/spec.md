@@ -39,6 +39,12 @@
 - **THEN** 对话窗 SHALL 收起
 - **AND** 焦点 SHALL 返回悬浮按钮
 
+#### Scenario: Header AI 按钮联动
+- **WHEN** 用户点击 Header 中的 AI assistant 按钮
+- **AND** 该按钮分发 `open-ai-widget` 自定义事件
+- **THEN** 对话窗 SHALL 打开
+- **AND** 焦点 SHALL 移至聊天输入框
+
 ### Requirement: 迷你对话窗
 迷你对话窗 SHALL 提供紧凑的会话界面，包含消息历史区、文本输入框与发送按钮。
 
@@ -46,6 +52,7 @@
 - **WHEN** 对话窗打开
 - **THEN** 它 SHALL 显示为固定宽度 360px、高度 480px 的面板
 - **AND** 面板 SHALL 位于悬浮按钮上方，间距 12px
+- **NOTE** 对话窗 SHALL 包含一个关闭按钮（`X` 图标），提供除悬浮按钮和 Escape 之外的第三种关闭方式
 
 #### Scenario: 对话窗无障碍
 - **WHEN** 对话窗打开
@@ -277,3 +284,11 @@ interface ApiChatResponse {
 - 多轮上下文记忆（MVP：每条消息相互独立）
 - 会话导出或分享功能
 - 语音输入或语音输出
+
+## Design Notes
+
+以下设计增强已在实现中采用，属于设计系统的合理视觉增强：
+
+- **悬浮按钮呼吸发光动画**：按钮使用 `glow-pulse` CSS 动画（2s 循环），提供视觉吸引力
+- **悬浮按钮悬停缩放**：`hover:scale-105` 提供额外的交互反馈
+- **对话窗内关闭按钮**：对话窗 header 区域包含 `X` 图标关闭按钮，作为悬浮按钮和 Escape 之外的补充关闭方式

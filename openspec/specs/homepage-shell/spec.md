@@ -158,6 +158,19 @@ shell 不提供额外的 slot 包装组件。各子组件（Hero、Navigation、
 - [ ] 激活 skip 链接将焦点移至 `<main>`
 - [ ] 页面恰好存在一个 `<header>`、一个 `<main>`、一个 `<footer>` 地标
 
+### Requirement: AI Widget 挂载
+首页 SHALL 渲染 AI widget（fixed 悬浮层），但 widget 不占用 section slot 序列。Header 中的 AI assistant 按钮 SHALL 通过自定义事件（`open-ai-widget`）触发 widget 对话窗打开并将焦点移至输入框。
+
+#### Scenario: AI Widget 渲染
+- **WHEN** 首页被渲染
+- **THEN** AI widget SHALL 作为 fixed 悬浮层挂载于页面
+- **NOTE** AI widget 不占用 section slot，其行为细节见 homepage-ai-widget spec
+
+#### Scenario: Header AI 按钮联动
+- **WHEN** 用户点击 Header 中的 AI assistant 按钮
+- **THEN** 系统 SHALL 分发自定义事件触发 AI widget 对话窗打开
+- **AND** 焦点 SHALL 移至对话窗的消息输入框
+
 ## Out of Scope
 
 - 视觉设计 tokens（颜色、字体、间距）— 属于样式基础设施职责

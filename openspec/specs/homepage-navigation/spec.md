@@ -75,7 +75,8 @@
 
 #### Scenario: 悬停状态
 - **WHEN** 用户使用指针设备悬停于卡片
-- **THEN** 卡片 SHALL 在 200ms 内显示视觉变化（如 `hover:shadow-lg` 或 `hover:scale-[1.02]`，配合 `transition-all duration-200`）
+- **THEN** 卡片 SHALL 在 200ms 内显示视觉变化（如 `hover:shadow-lg`，配合 `transition-all duration-200`）
+- **NOTE** 卡片底部可显示品牌渐变装饰条（`--gradient-card-accent`），悬停时淡入显示
 
 #### Scenario: 聚焦状态
 - **WHEN** 卡片获得键盘焦点
@@ -145,3 +146,4 @@ interface NavigationSectionProps {
 - 卡片拖拽排序
 - 动态卡片数量（固定恰好 3 张）
 - 卡片角标或 "New" 标识
+- 卡片底部品牌渐变装饰条（视觉增强，属于设计系统装饰元素）

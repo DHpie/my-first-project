@@ -222,3 +222,12 @@ interface ApiPostsResponse {
 - 点赞数实时更新
 - 帖子图片缩略图（仅显示头像图片）
 - 首页帖子分类或标签过滤
+
+## Design Notes
+
+以下设计增强已在实现中采用，属于设计系统的合理视觉增强：
+
+- **区域标题**：社区区渲染 `<h2>` 标题（"Community Highlights"）于帖子网格上方，提供视觉层次
+- **Heart 图标**：点赞数旁显示 lucide-react `Heart` 图标，增强视觉语义
+- **装饰性 accent bar**：帖子卡片底部可显示品牌渐变装饰条，悬停时淡入
+- **悬停效果**：卡片悬停时除 `shadow-lg` 外，额外显示 `hover:-translate-y-1` 上浮效果

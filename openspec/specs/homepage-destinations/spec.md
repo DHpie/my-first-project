@@ -87,7 +87,7 @@
 
 #### Scenario: 图片加载失败
 - **WHEN** 封面图加载失败
-- **THEN** 卡片 SHALL 显示渐变占位背景，并叠加白色城市名文本
+- **THEN** 卡片 SHALL 显示中性渐变占位背景（`from-gray-500 to-gray-700`），并叠加白色城市名文本
 
 ### Requirement: 无障碍
 目的地区 SHALL 为屏幕阅读器用户提供可达的地标。
@@ -181,3 +181,12 @@ interface ApiDestinationsResponse {
 - 目的地卡片上的用户评价或评分
 - 客户端 slug 生成（slug 由 API 提供）
 - 图片懒加载策略定制（委托给 `next/image` 默认值）
+
+## Design Notes
+
+以下设计增强已在实现中采用，属于设计系统的合理视觉增强：
+
+- **区域标题**：目的地区渲染 `<h2>` 标题（"Popular Destinations"）于卡片网格上方，提供视觉层次
+- **图片叠加层**：封面图底部叠加半透明渐变（`from-black/60 to-transparent`），城市名以白色粗体绝对定位于图片左下角，提升文字可读性
+- **装饰性 accent bar**：卡片左侧和底部可显示品牌渐变装饰条，悬停时淡入
+- **悬停效果**：卡片悬停时除 `shadow-lg` 外，额外显示 `hover:-translate-y-1` 上浮效果

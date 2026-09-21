@@ -110,6 +110,7 @@ Hero 区 SHALL 使用 Tailwind CSS mobile-first 断点前缀适配不同视口�
 - **WHEN** 视口宽度为 768px 及以上（`md:` 断点）
 - **THEN** Hero 区 SHALL 使用居中布局，标题字号 `text-5xl`
 - **AND** 内容容器 SHALL 最大宽度 1200px，水平自动外边距
+- **NOTE** Hero 内容覆盖层独立应用 `max-w-[1200px] md:mx-auto` 约束，确保组件在任意父容器上下文中均能正确居中，即使外层布局已提供相同约束（防御性居中设计）
 
 ### Requirement: 首屏性能
 Hero 区是最大内容绘制（LCP）元素，SHALL 满足性能目标。
@@ -171,7 +172,7 @@ interface SearchFormProps {
 - [ ] 提交非空查询导航至 `/search?q={query}`
 - [ ] 提交空输入不导航并显示 "Please enter a search term"
 - [ ] 纯空白输入按空输入处理
-- [ ] 输入框拒绝超过 200 字符的字符
+- [ ] 输入框拒绝超过 200 字符的字符并显示 "Search query is too long (max 200 characters)"
 - [ ] 输入的 HTML/脚本内容以纯文本渲染（XSS 安全）
 - [ ] 导航进行中禁止重复提交
 
