@@ -1,95 +1,55 @@
-﻿# Agent Instructions
+﻿# Agent 指令
 
-You are an AI coding agent working on **my-first-project**.
+你是一个 AI 编码助手，正在参与 **ChinaBuddy** (my-first-project) 项目。
 
-## Session Startup
+## 会话启动
 
-1. Read `.harness/config.md` for project constraints and quality gates
-2. Read `skills/using-superpowers/SKILL.md` for skills system overview
-3. Check `openspec/changes/` for in-flight changes
-4. Check `openspec/specs/` for current specifications
+1. 阅读 `.agent/conventions/project-context.md` 了解项目上下文
+2. 阅读 `.harness/config.md` 了解工作流约束
+3. 检查 `openspec/changes/` 中的进行中变更
+4. 检查 `openspec/specs/` 中的当前规格说明
 
-## Core Workflow
+## 规约文件
 
-### Before Any Task
-- Check `skills/` for relevant skills -- they are MANDATORY workflows
-- Read the skill BEFORE proceeding (not after, not "while working")
-- If the task involves implementation, the test-driven-development skill is REQUIRED
+实现层规约在 `.agent/conventions/` 目录下:
 
-### The Development Loop
+| 文件 | 范围 |
+|------|------|
+| `project-context.md` | 技术栈、仓库结构、语言边界、硬规则 |
+| `backend.md` | Java 分层架构、DTO、Result\<T\>、异常处理 |
+| `frontend.md` | 组件模式、数据获取、TypeScript 类型、可访问性 |
+| `styling.md` | Tailwind、shadcn/ui、响应式、主题、动画 |
+| `database.md` | BaseEntity、公共字段、命名、主键策略 |
 
-```
-1. BRAINSTORM  -> Classify (spike/bounded/architectural), refine idea through questions
-2. SPEC        -> Write specs in openspec/specs/ or propose change
-3. PLAN        -> Write plan with 2-5 min tasks in openspec/changes/<name>/tasks.md
-4. WORKTREE    -> Create isolated branch (if needed)
-5. IMPLEMENT   -> TDD: test first, then code, then refactor (one subagent per task)
-6. REVIEW      -> Check against plan and specs between tasks
-7. VERIFY      -> Run full test suite, verify requirements met with fresh evidence
-8. ARCHIVE     -> Move completed change to openspec/changes/archive/
-```
+**在对应领域编写代码前，必须先加载相关规约文件。**
 
-## OpenSpec Conventions
+## Superpowers 技能
 
-### Change Structure
-Each change lives in `openspec/changes/<change-name>/`:
-- `proposal.md` -- why we're doing this, what's changing
-- `specs/` -- requirements and scenarios
-- `design.md` -- technical approach
-- `tasks.md` -- implementation checklist
+技能文件在 `skills/<skill-name>/SKILL.md`。每个技能都是强制性工作流 -- 在任何操作之前调用，而非事后参考。
 
-### Spec Format
-Plain Markdown with concrete scenarios:
+| 类别 | 技能 | 核心规则 |
+|------|------|---------|
+| 流程 | brainstorming, writing-plans, executing-plans, subagent-driven-development | 分类想法、2-5 分钟粒度任务、每任务独立子代理 |
+| 测试 | test-driven-development | 没有失败的测试就不写生产代码 |
+| 调试 | systematic-debugging, verification-before-completion | 四阶段根因分析、完成前必须有新鲜证据 |
+| 评审 | requesting-code-review, receiving-code-review | 技术验证，不做表演式认同 |
+| Git | using-git-worktrees, finishing-a-development-branch | 隔离工作区、合并前验证测试 |
+| 元技能 | using-superpowers, writing-skills, dispatching-parallel-agents | 先调用技能、技能创建也遵循 TDD |
 
-```markdown
-### Requirement: <Name>
-The system SHALL <behavior>.
+### 辅助参考文件
 
-#### Scenario: <Name>
-- **WHEN** <trigger>
-- **THEN** <outcome>
-```
+许多技能包含按需加载的辅助文件:
+- `systematic-debugging/` 包含 root-cause-tracing.md, defense-in-depth.md, condition-based-waiting.md
+- `subagent-driven-development/` 包含 implementer、reviewer、re-review 的提示词模板
+- `test-driven-development/` 包含 writing-good-tests.md
+- `brainstorming/` 包含 spec-document-reviewer-prompt.md
+- `writing-plans/` 包含 plan-document-reviewer-prompt.md
+- `requesting-code-review/` 包含 code-reviewer.md
 
-## Superpowers Skills
+## 硬规则 (不可违反)
 
-Skills are in `skills/<skill-name>/SKILL.md` (flat structure). Each skill is a mandatory workflow — invoke BEFORE any action, not as documentation after the fact.
-
-| Category | Skills | Key Rules |
-|----------|--------|-----------|
-| Process | brainstorming, writing-plans, executing-plans, subagent-driven-development | Classify ideas, plan in 2-5 min tasks, fresh subagent per task |
-| Testing | test-driven-development | NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST |
-| Debugging | systematic-debugging, verification-before-completion | 4-phase root cause, no completion without fresh evidence |
-| Review | requesting-code-review, receiving-code-review | Technical verification, no performative agreement |
-| Git | using-git-worktrees, finishing-a-development-branch | Isolated workspaces, verify tests before merge |
-| Meta | using-superpowers, writing-skills, dispatching-parallel-agents | Invoke skills first, TDD for skill creation |
-
-### Supporting Reference Files
-
-Many skills include supporting files loaded on demand:
-- `systematic-debugging/` has root-cause-tracing.md, defense-in-depth.md, condition-based-waiting.md
-- `subagent-driven-development/` has prompt templates for implementer, reviewer, and re-review
-- `test-driven-development/` has writing-good-tests.md
-- `brainstorming/` has spec-document-reviewer-prompt.md
-- `writing-plans/` has plan-document-reviewer-prompt.md
-- `requesting-code-review/` has code-reviewer.md
-
-## TDD Enforcement
-
-- NEVER write code before a failing test exists
-- If you catch yourself writing code before tests, DELETE it
-- RED -> GREEN -> REFACTOR is the only workflow
-- Every commit should have a corresponding test
-- This applies to ALL implementation, including skill creation
-
-## Technology Stack
-
-See `.harness/config.md` > **Technology Stack Constraints** for binding technology selections, version constraints, and cross-cutting rules.
-
-## Quality Standards
-
-- YAGNI: You Aren't Gonna Need It
-- DRY: Don't Repeat Yourself
-- Keep functions small and focused
-- Write descriptive commit messages
-- Update specs when implementation reveals changes
-- Verify with evidence, not assumptions
+- **TDD**: 没有失败的测试就不写生产代码
+- **YAGNI / DRY**: 不过度设计，不重复
+- **规格先行**: 没有规格或计划不动 `src/`
+- **语言边界**: 前端 = TypeScript，后端 = Java
+- **接口契约**: 所有端点使用 `/api` 前缀，`Result<T>` 包装
