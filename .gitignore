@@ -50,3 +50,6 @@ yarn-error.log*
 
 # OpenSpec cache
 .openspec-cache
+
+# Git worktrees
+.worktrees/
