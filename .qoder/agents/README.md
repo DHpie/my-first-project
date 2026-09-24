@@ -19,6 +19,7 @@
 | `backend-agent.md` | 后端开发 | Spring Boot API 与业务逻辑实现、后端 TDD |
 | `test-agent.md` | 测试工程 | 测试策略、测试用例、API 契约与上线前验证 |
 | `experience-agent.md` | 体验审查 | 页面视觉/交互/无障碍合规走查 |
+| `spec-reviewer.md` | Spec 合规审查 | 实现完成后对照 Spec 双向对账，输出覆盖率报告与修复项 |
 
 ## 命名建议
 
