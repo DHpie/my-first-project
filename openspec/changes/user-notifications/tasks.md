@@ -24,10 +24,10 @@
 
 ## 4. 后端通知生成集成与自动清理
 
-- [ ] 4.1 在现有点赞业务逻辑中调用 `NotificationService.createNotification()`，传入 LIKE 类型参数，验证点赞时生成通知
-- [ ] 4.2 在现有评论业务逻辑中调用 `NotificationService.createNotification()`，传入 COMMENT 类型参数，验证评论时生成通知
-- [ ] 4.3 在现有回复业务逻辑中调用 `NotificationService.createNotification()`，传入 REPLY 类型参数，验证回复时生成通知
-- [ ] 4.4 确保通知生成不触发给自己发通知（用户 A 给自己帖子点赞/评论/回复时不生成），验证无自通知
+- [x] 4.1 在现有点赞业务逻辑中调用 `NotificationService.createNotification()`，传入 LIKE 类型参数，验证点赞时生成通知（通过 `PostInteractionService.likePost()` 实现）
+- [x] 4.2 在现有评论业务逻辑中调用 `NotificationService.createNotification()`，传入 COMMENT 类型参数，验证评论时生成通知（通过 `PostInteractionService.commentOnPost()` 实现）
+- [x] 4.3 在现有回复业务逻辑中调用 `NotificationService.createNotification()`，传入 REPLY 类型参数，验证回复时生成通知（通过 `PostInteractionService.replyToComment()` 实现）
+- [x] 4.4 确保通知生成不触发给自己发通知（用户 A 给自己帖子点赞/评论/回复时不生成），验证无自通知（`NotificationServiceImpl.createNotification()` 内 `userId.equals(actorId)` 检查）
 - [x] 4.5 创建通知自动清理定时任务（`@Scheduled` 每日执行），删除 `createdAt` 早于 14 天前的通知记录，验证清理逻辑正确
 
 ## 5. 前端 WebSocket Hook 与 API 层
