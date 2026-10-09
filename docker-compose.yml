@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   chroma:
+    # Spring AI 1.1.2 使用 v2 API，需要最新 Chroma
     image: chromadb/chroma:latest
     container_name: chinabuddy-chroma
     ports:
